@@ -16,6 +16,7 @@ model User{
   email String
   password String
   address Address?
+  books Book[]
 }
 model Address {
   id Int @id @default(autoincrement())
@@ -29,4 +30,6 @@ model Book{
   id Int @id @default(autoincrement())
   title String
   description String
+  author User @relation(fields:[authorId], references:[id])
+  authorId Int
 }
