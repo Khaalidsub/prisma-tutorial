@@ -1,8 +1,9 @@
 import {Request,Response} from 'express'
 import * as usersService from './user.service'
 export const createUser =async (request: Request, response: Response) => {
-
-    const newUser = await usersService.createUser(request.body)
+    const {address,...userDTO} = request.body
+    // const newUser = await usersService.createUser(request.body)
+    const newUser = await usersService.createUser({...userDTO,address:{create:address}})
     console.log(newUser);
     return response.json(newUser)
 }
@@ -13,3 +14,14 @@ export const getUsers = async(request: Request, response: Response) => {
 export const getOneUser = (request: Request, response: Response) => {}
 export const updateUser = (request: Request, response: Response) => {}
 export const deleteUser = (request: Request, response: Response) => {}
+
+export const createAddress = async (request: Request, response: Response) => {
+    const address = await usersService.createAddress(request.body)
+    console.log(address);
+    return response.json(address)
+}
+
+export const getAddress = async (request: Request,response: Response)=>{
+    const address = await usersService.getAddress()
+    return response.json(address)
+}
