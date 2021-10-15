@@ -12,7 +12,14 @@ export const getUsers = async(request: Request, response: Response) => {
     return response.json(users)
 }
 export const getOneUser = (request: Request, response: Response) => {}
-export const updateUser = (request: Request, response: Response) => {}
+export const updateUser = async(request: Request, response: Response) => {
+
+    const {id} = request.params
+    const {authorId,...userDTO} = request.body
+    const updatedUser = await usersService.updateUser(Number(id),{...userDTO,author:{connect:{id:authorId}}})
+
+    return response.json(updatedUser)
+}
 export const deleteUser = (request: Request, response: Response) => {}
 
 export const createAddress = async (request: Request, response: Response) => {
