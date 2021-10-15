@@ -3,12 +3,11 @@ export const createUser = (userDTO: any) => {
     return prisma.user.create({ data: userDTO })
 }
 export const getUsers = () => {
-    return prisma.user.findMany({ include: { address: true, editor:true, author:true } })
+    return prisma.user.findMany({ include: { address: true, editor: true, author: true, authors: true, publishers: true } })
 }
 export const getOneUser = (id: string) => { }
 export const updateUser = (id: number, userDTO: any) => {
-
-    return prisma.user.update({ data: userDTO, where: { id }, include: { author: true, editor: true } })
+    return prisma.user.update({ data: userDTO, where: { id }, include: { editor: true, author: true, authors: true, publishers: true } })
 }
 export const deleteUser = (id: string) => { }
 

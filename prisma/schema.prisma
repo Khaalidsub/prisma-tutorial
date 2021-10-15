@@ -20,6 +20,8 @@ model User{
   authorId Int?
   editor User? @relation("AuthorEditor",fields: [authorId], references:[id])
   author User? @relation("AuthorEditor")
+  authors User[] @relation("AuthorPublisher")
+  publishers User[] @relation("AuthorPublisher")
 }
 model Address {
   id Int @id @default(autoincrement())
@@ -42,4 +44,7 @@ model Category{
   id Int @id @default(autoincrement())
   name String
   books Book[]
+  parentCategoryId Int?
+  parentCategory Category? @relation("ParentSubCategories", fields:[parentCategoryId], references:[id])
+  subCategories Category[] @relation("ParentSubCategories")
 }
