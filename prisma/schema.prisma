@@ -17,6 +17,11 @@ model User{
   password String
   address Address?
   books Book[]
+  editorId Int?
+  editor User? @relation("AuthorEditor",fields: [editorId], references:[id])
+  author User? @relation("AuthorEditor")
+  publishers User[] @relation("AuthorPublisher")
+  authors User[] @relation("AuthorPublisher")
 }
 model Address {
   id Int @id @default(autoincrement())
@@ -39,4 +44,7 @@ model Category{
   id Int @id @default(autoincrement())
   name String
   books Book[]
+  parentCategoryId Int?
+  parentCategory Category? @relation("ParentSubCategories", fields:[parentCategoryId], references:[id])
+  subCategories Category[] @relation("ParentSubCategories")
 }

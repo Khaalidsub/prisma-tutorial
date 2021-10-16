@@ -12,5 +12,10 @@ export const getCategories = async (request: Request, response: Response) => {
     return response.json(categories)
 }
 export const getOneCategory = (request: Request, response: Response) => { }
-export const updateCategory = (request: Request, response: Response) => { }
+export const updateCategory = async (request: Request, response: Response) => {
+    const { id } = request.params
+    const { parentCategoryId, ...categoryDTO } = request.body
+    const updatedCategory = await categoriesService.updateCategory(Number(id), { ...categoryDTO, parentCategory: { connect: { id: parentCategoryId } } })
+    return response.json(updatedCategory)
+}
 export const deleteCategory = (request: Request, response: Response) => { }
