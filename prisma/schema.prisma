@@ -9,6 +9,9 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
 
 model User{
   id Int @id @default(autoincrement())
@@ -17,11 +20,11 @@ model User{
   password String
   address Address?
   books Book[]
-  authorId Int?
-  editor User? @relation("AuthorEditor",fields: [authorId], references:[id])
+  editorId Int?
+  editor User? @relation("AuthorEditor",fields: [editorId], references:[id])
   author User? @relation("AuthorEditor")
-  authors User[] @relation("AuthorPublisher")
   publishers User[] @relation("AuthorPublisher")
+  authors User[] @relation("AuthorPublisher")
 }
 model Address {
   id Int @id @default(autoincrement())

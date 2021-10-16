@@ -11,21 +11,21 @@ export const getUsers = async (request: Request, response: Response) => {
     const users = await usersService.getUsers()
     return response.json(users)
 }
-export const getOneUser = (request: Request, response: Response) => { }
-export const updateUser = async (request: Request, response: Response) => {
-    const { id } = request.params
-    const { authorId, ...userDTO } = request.body
-    const updatedUser = await usersService.updateUser(Number(id), { ...userDTO, author: { connect: { id: authorId } } })
-    return response.json(updatedUser)
+export const getOneUser = (request: Request, response: Response) => {}
+export const updateUser = (request: Request, response: Response) => {}
+export const updateAuthor = async (request: Request, response: Response)=>{
+    const {id} = request.params
+    const {editorId,...authorDTO} = request.body
+    const updatedAuthor = await usersService.updateUser(Number(id),{...authorDTO,editor:{connect:{id:editorId}}})
+    return response.json(updatedAuthor)
 }
-
-export const updatePublisher = async (request: Request, response: Response) => {
-    const { id } = request.params
-    const { authorId, ...userDTO } = request.body
-    const updatedPublisher = await usersService.updateUser(Number(id), { ...userDTO, authors: { connect: { id: authorId } } })
-    return response.json(updatedPublisher)
+export const updatePublisher = async (request: Request, response: Response)=>{
+    const {id} = request.params
+    const {authorId,...publisherDTO} = request.body
+    const updatedAuthor = await usersService.updateUser(Number(id),{...publisherDTO,authors:{connect:{id:authorId}}})
+    return response.json(updatedAuthor)
 }
-export const deleteUser = (request: Request, response: Response) => { }
+export const deleteUser = (request: Request, response: Response) => {}
 
 export const createAddress = async (request: Request, response: Response) => {
     const address = await usersService.createAddress(request.body)
